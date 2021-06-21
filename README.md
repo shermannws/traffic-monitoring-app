@@ -1,6 +1,10 @@
-# Getting Started with Create React App
+# Traffic Monitoring Application
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+
+## Background
+
+This application is inspired by the 10th Social Innovation of CAPT. We wanted to devise an innovative solution to a problem that we often observe. That is the congestion problem that happens in UTown.
 
 ## Available Scripts
 
