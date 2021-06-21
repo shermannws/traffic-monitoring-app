@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from "react"
-import { Alert, Container } from "react-bootstrap"
 
 import Paper from '@material-ui/core/Paper';
 import {
@@ -36,12 +35,6 @@ const legendLabelBase = ({ classes, ...restProps }) => (
   <Legend.Label className={classes.label} {...restProps} />
 );
 const Label = withStyles(legendLabelStyles, { name: 'LegendLabel' })(legendLabelBase);
-
-
-
-function getData() {
-  // dataDocRef = db.collection("")
-}
 
 export default function DashBoardPage() {
   const [data, setData] = useState([])
