@@ -41,8 +41,7 @@ export default function DashBoardPage() {
   useEffect(() => {
     let dataDocRef = db.collection("test").doc("test")
     dataDocRef.get().then((doc) => {
-      setData(doc.data().arr.slice(17,23))
-      //setData(doc.data().arr)
+      setData(doc.data().arr.slice(9,18))
     })
   }, [])
 
