@@ -27,7 +27,7 @@ function App() {
           </p>
         </div>
         <hr />
-        <div className="pt-5 w-100">
+        <div className="pt-2 w-100">
           <Router>
               <Switch>  
                 <Route exact path="/">

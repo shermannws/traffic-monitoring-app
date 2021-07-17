@@ -12,6 +12,7 @@ import {
 } from '@devexpress/dx-react-chart-material-ui';
 import { withStyles } from '@material-ui/core/styles';
 import { Stack, Animation, EventTracker } from '@devexpress/dx-react-chart';
+import { ProgressBarLine } from 'react-progressbar-line'
 
 import { db } from '../firebase'
 
@@ -38,17 +39,45 @@ const Label = withStyles(legendLabelStyles, { name: 'LegendLabel' })(legendLabel
 
 export default function DashBoardPage() {
   const [data, setData] = useState([])
+  const [plotData, setPlotData] = useState([])
+  const [expected, setExpected] = useState(0)
+  const [actual, setActual] = useState(0)
+
   useEffect(() => {
-    let dataDocRef = db.collection("test").doc("test")
-    dataDocRef.get().then((doc) => {
-      setData(doc.data().arr.slice(9,18))
+    db.collection("test").doc("test").onSnapshot((doc) => {
+      setData(doc.data().arr)
+      setPlotData(data.slice(9,19))
     })
-  }, [])
+
+    let expectedCount = 0
+    let actualCount = 0
+    data.forEach(map => {
+      expectedCount += map.expected
+      actualCount += map.actual
+    })
+    setExpected(expectedCount)
+    setActual(actualCount)
+  }, [data])
 
   return (
+    <>
+    <ProgressBarLine
+      value={actual}
+      min={0}
+      max={expected}
+      text={`${actual} out of ${expected} have moved in`}
+      styles={{
+        path: {
+          stroke: '#346751'
+        },
+        trail: {
+          stroke: '#dde0db'
+        }
+      }}
+    />
     <Paper>
       <Chart
-        data={data}
+        data={plotData}
       >
         <ArgumentAxis />
         <ValueAxis />
@@ -76,5 +105,6 @@ export default function DashBoardPage() {
         
       </Chart>
     </Paper>
+    </>
   );
 }
