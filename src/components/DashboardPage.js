@@ -56,14 +56,14 @@ export default function DashBoardPage() {
       expectedCount += map.expected
       actualCount += map.actual
     })
-    setExpected(expectedCount)
     setActual(actualCount)
+    setExpected(expectedCount)
   }, [data])
 
   return (
     <>
     <ProgressBarLine
-      value={0}
+      value={actual}
       min={0}
       max={expected}
       text={`${actual} out of ${expected} have moved in`}
