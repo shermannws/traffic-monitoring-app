@@ -44,9 +44,10 @@ export default function DashBoardPage() {
   const [actual, setActual] = useState(0)
 
   useEffect(() => {
-    db.collection("test").doc("test").onSnapshot((doc) => {
+    const dataDocRef = db.collection("test").doc("test")
+    dataDocRef.get().then((doc) => {
       setData(doc.data().arr)
-      setPlotData(data.slice(9,19))
+      setPlotData(data.slice(9,17))
     })
 
     let expectedCount = 0
@@ -62,7 +63,7 @@ export default function DashBoardPage() {
   return (
     <>
     <ProgressBarLine
-      value={actual}
+      value={0}
       min={0}
       max={expected}
       text={`${actual} out of ${expected} have moved in`}

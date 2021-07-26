@@ -3,7 +3,6 @@ import { Alert, Container, Card, Form, Button, Row } from "react-bootstrap"
 import { useHistory } from "react-router-dom"
 
 import { db } from "../firebase"
-import firebase from "firebase/app"
 
 export default function RegisterPage() {
   const roomRef = useRef("Floor")
@@ -29,8 +28,8 @@ export default function RegisterPage() {
         throw new Error("2")
       }
 
-      let currentTime = new Date()
-      let currentHr = currentTime.getHours()
+      const currentTime = new Date()
+      const currentHr = currentTime.getHours()
 
       // floors.forEach(async f => units.forEach(async u => {
       //   let room = f+u
@@ -38,28 +37,36 @@ export default function RegisterPage() {
       //     count: 0
       //   }, { merge: true})
       // }))
-      let room = roomRef.current.value + unitRef.current.value
-      await db.collection("rooms").doc(room).update({
-        count: firebase.firestore.FieldValue.increment(1)
-      }, { merge: true})
-      
-      let dataDocRef = await db.collection("test").doc("test")
-      dataDocRef.get().then((doc) => {
-        let prev = doc.data().arr
+      const room = roomRef.current.value + unitRef.current.value
 
-        let newObject = JSON.parse(JSON.stringify(prev[currentHr]))
+      const roomDocRef = db.collection("rooms").doc(room)
+      await roomDocRef.get().then(async (doc) => {
+        const currentCount = doc.data().count
+        const newCount = currentCount + 1
+        if (currentCount === 0) {
+          let dataDocRef = db.collection("test").doc("test")
+          await dataDocRef.get().then((doc) => {
+            let prev = doc.data().arr
+    
+            let newObject = JSON.parse(JSON.stringify(prev[currentHr]))
+          
+            newObject.actual = newObject.actual + 1
+            
+            let next = JSON.parse(JSON.stringify(prev))
+            next.splice(currentHr,1,newObject)
       
-        newObject.actual = newObject.actual + 1
-        
-        let next = JSON.parse(JSON.stringify(prev))
-        next.splice(currentHr,1,newObject)
-  
-        db.collection("test").doc("test").set({
-          arr: next
+            db.collection("test").doc("test").set({
+              arr: next
+            })
+      
+          })
+        }
+
+        db.collection("rooms").doc(room).set({
+          count: newCount
         }, { merge: true })
-  
+
       })
-     
      
       history.push("/done")
     } catch (e) {

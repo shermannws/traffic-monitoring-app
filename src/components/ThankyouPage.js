@@ -15,7 +15,7 @@ export default function RegisterPage() {
 
       <div className="d-flex align-items-center justify-content-center">
         <Image className="mr-2" src={insta} width={80} />
-        <span className="ml-2"><h4><a href="https://instagram.com/captsocialinnovation">@capt.si</a></h4></span>
+        <span className="ml-2"><h4><a href="https://instagram.com/si.capt">@si.capt</a></h4></span>
       </div>
 
     </>
