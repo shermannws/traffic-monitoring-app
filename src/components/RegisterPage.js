@@ -4,6 +4,8 @@ import { useHistory } from "react-router-dom"
 
 import { db } from "../firebase"
 
+const dateDeployed = "30Jul" //01Aug 
+
 export default function RegisterPage() {
   const roomRef = useRef("Floor")
   const unitRef = useRef("Unit")
@@ -37,6 +39,7 @@ export default function RegisterPage() {
       //     count: 0
       //   }, { merge: true})
       // }))
+      //========================================================
       const room = roomRef.current.value + unitRef.current.value
 
       const roomDocRef = db.collection("rooms").doc(room)
@@ -44,7 +47,7 @@ export default function RegisterPage() {
         const currentCount = doc.data().count
         const newCount = currentCount + 1
         if (currentCount === 0) {
-          let dataDocRef = db.collection("test").doc("test")
+          let dataDocRef = db.collection("graphData").doc(dateDeployed)
           await dataDocRef.get().then((doc) => {
             let prev = doc.data().arr
     
@@ -55,7 +58,7 @@ export default function RegisterPage() {
             let next = JSON.parse(JSON.stringify(prev))
             next.splice(currentHr,1,newObject)
       
-            db.collection("test").doc("test").set({
+            db.collection("graphData").doc(dateDeployed).set({
               arr: next
             })
       
@@ -67,7 +70,7 @@ export default function RegisterPage() {
         }, { merge: true })
 
       })
-     
+    
       history.push("/done")
     } catch (e) {
       setLoading(false)
@@ -77,7 +80,7 @@ export default function RegisterPage() {
       } else if (e.message === "2") {
         msg = "Please select a valid unit."
       } else {
-        msg = "Plese try again."
+        msg = "Please try again."
       }
       setError(msg)
     }

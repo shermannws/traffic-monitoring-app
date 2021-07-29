@@ -15,6 +15,7 @@ import { Stack, Animation, EventTracker } from '@devexpress/dx-react-chart';
 import { ProgressBarLine } from 'react-progressbar-line'
 
 import { db } from '../firebase'
+import firebase from "firebase/app"
 
 const legendStyles = () => ({
   root: {
@@ -37,6 +38,8 @@ const legendLabelBase = ({ classes, ...restProps }) => (
 );
 const Label = withStyles(legendLabelStyles, { name: 'LegendLabel' })(legendLabelBase);
 
+
+const dateDeployed = "30Jul" //01Aug 
 export default function DashBoardPage() {
   const [data, setData] = useState([])
   const [plotData, setPlotData] = useState([])
@@ -44,10 +47,11 @@ export default function DashBoardPage() {
   const [actual, setActual] = useState(0)
 
   useEffect(() => {
-    const dataDocRef = db.collection("test").doc("test")
+    const dataDocRef = db.collection("graphData").doc(dateDeployed)
     dataDocRef.get().then((doc) => {
       setData(doc.data().arr)
       setPlotData(data.slice(9,17))
+
     })
 
     let expectedCount = 0
@@ -58,8 +62,17 @@ export default function DashBoardPage() {
     })
     setActual(actualCount)
     setExpected(expectedCount)
+
+    
   }, [data])
 
+  useEffect(() => {
+    db.collection("aar").doc("dashboard").update({
+      count: firebase.firestore.FieldValue.increment(1)
+    })
+  }, [])
+
+  
   return (
     <>
     <ProgressBarLine
