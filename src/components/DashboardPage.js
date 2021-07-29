@@ -67,7 +67,10 @@ export default function DashBoardPage() {
   }, [data])
 
   useEffect(() => {
-    db.collection("aar").doc("dashboard").update({
+    const currentTime = new Date()
+    const currentHr = currentTime.getHours()
+
+    db.collection("aar"+dateDeployed).doc(currentHr.toString()).update({
       count: firebase.firestore.FieldValue.increment(1)
     })
   }, [])
@@ -79,7 +82,7 @@ export default function DashBoardPage() {
       value={actual}
       min={0}
       max={expected}
-      text={`${actual} out of ${expected} have moved in`}
+      text={`${actual} out of ${expected} have moved in for 30th Jul`}
       styles={{
         path: {
           stroke: '#346751'
