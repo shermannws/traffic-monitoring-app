@@ -15,7 +15,6 @@ import { Stack, Animation, EventTracker } from '@devexpress/dx-react-chart';
 import { ProgressBarLine } from 'react-progressbar-line'
 
 import { db } from '../firebase'
-import firebase from "firebase/app"
 
 const legendStyles = () => ({
   root: {
