@@ -4,6 +4,7 @@ import { Container, Image } from "react-bootstrap"
 import RegisterPage from "./components/RegisterPage"
 import DashboardPage from "./components/DashboardPage"
 import ThankyouPage from "./components/ThankyouPage"
+import ExcoPage from "./components/ExcoPage"
 
 import logo from "./images/logo-draft.png"
 
@@ -36,6 +37,7 @@ function App() {
                 <Route path="/register" component={RegisterPage} />
                 <Route path="/done" component={ThankyouPage} />
                 <Route path="/dashboard" component={DashboardPage} />
+                <Route path="/unitedexcofrontorwtv" component={ExcoPage} />
               </Switch>
           </Router>
         </div>
