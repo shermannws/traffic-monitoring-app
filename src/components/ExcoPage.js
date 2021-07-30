@@ -38,7 +38,7 @@ const legendLabelBase = ({ classes, ...restProps }) => (
 const Label = withStyles(legendLabelStyles, { name: 'LegendLabel' })(legendLabelBase);
 
 
-const dateDeployed = "30Jul" //01Aug 
+const dateDeployed = "01Aug " //01Aug 
 export default function DashBoardPage() {
   const [data, setData] = useState([])
   const [plotData, setPlotData] = useState([])
@@ -71,7 +71,7 @@ export default function DashBoardPage() {
       value={actual}
       min={0}
       max={expected}
-      text={`${actual} out of ${expected} have moved in for 30th Jul`}
+      text={`${actual} out of ${expected} have moved in for 1st August`}
       styles={{
         path: {
           stroke: '#346751'

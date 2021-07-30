@@ -4,7 +4,7 @@ import { useHistory } from "react-router-dom"
 
 import { db } from "../firebase"
 
-const dateDeployed = "30Jul" //01Aug 
+const dateDeployed = "01Aug" //01Aug 
 
 export default function RegisterPage() {
   const roomRef = useRef("Floor")
