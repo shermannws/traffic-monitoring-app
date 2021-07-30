@@ -38,7 +38,7 @@ const legendLabelBase = ({ classes, ...restProps }) => (
 const Label = withStyles(legendLabelStyles, { name: 'LegendLabel' })(legendLabelBase);
 
 
-const dateDeployed = "01Aug " //01Aug 
+const dateDeployed = "01Aug" //01Aug 
 export default function DashBoardPage() {
   const [data, setData] = useState([])
   const [plotData, setPlotData] = useState([])
