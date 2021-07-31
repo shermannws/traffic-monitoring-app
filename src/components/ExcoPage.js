@@ -49,10 +49,11 @@ export default function DashBoardPage() {
     const dataDocRef = db.collection("graphData").doc(dateDeployed)
     dataDocRef.get().then((doc) => {
       setData(doc.data().arr)
-      setPlotData(data.slice(9,17))
-
+      setPlotData(doc.data().arr.slice(9,17))
     })
+  }, [])
 
+  useEffect(() => {
     let expectedCount = 0
     let actualCount = 0
     data.forEach(map => {
@@ -61,8 +62,6 @@ export default function DashBoardPage() {
     })
     setActual(actualCount)
     setExpected(expectedCount)
-
-    
   }, [data])
   
   return (
