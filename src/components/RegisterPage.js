@@ -2,9 +2,9 @@ import React, { useState, useRef } from "react"
 import { Alert, Container, Card, Form, Button, Row } from "react-bootstrap"
 import { useHistory } from "react-router-dom"
 
-import { db } from "../firebase"
+// import { db } from "../firebase"
 
-const dateDeployed = "01Aug" //01Aug 
+// const dateDeployed = "01Aug"
 
 export default function RegisterPage() {
   const roomRef = useRef("Floor")
@@ -23,66 +23,58 @@ export default function RegisterPage() {
       setError("")
       setLoading(true)
 
-      if (roomRef.current.value === "Floor") {
-        throw new Error("1")
-      }
-      if (unitRef.current.value === "Unit") {
-        throw new Error("2")
-      }
+      // if (roomRef.current.value === "Floor") {
+      //   throw new Error("1")
+      // }
+      // if (unitRef.current.value === "Unit") {
+      //   throw new Error("2")
+      // }
 
-      const currentTime = new Date()
-      const currentHr = currentTime.getHours()
+      // const currentTime = new Date()
+      // const currentHr = currentTime.getHours()
+      // const room = roomRef.current.value + unitRef.current.value
 
-      // floors.forEach(async f => units.forEach(async u => {
-      //   let room = f+u
-      //   await db.collection("rooms").doc(room).set({
-      //     count: 0
-      //   }, { merge: true})
-      // }))
-      //========================================================
-      const room = roomRef.current.value + unitRef.current.value
-
-      const roomDocRef = db.collection("rooms").doc(room)
-      await roomDocRef.get().then(async (doc) => {
-        const currentCount = doc.data().count
-        const newCount = currentCount + 1
-        if (currentCount === 0) {
-          let dataDocRef = db.collection("graphData").doc(dateDeployed)
-          await dataDocRef.get().then((doc) => {
-            let prev = doc.data().arr
+      // const roomDocRef = db.collection("rooms").doc(room)
+      // await roomDocRef.get().then(async (doc) => {
+      //   const currentCount = doc.data().count
+      //   const newCount = currentCount + 1
+      //   if (currentCount === 0) {
+      //     let dataDocRef = db.collection("graphData").doc(dateDeployed)
+      //     await dataDocRef.get().then((doc) => {
+      //       let prev = doc.data().arr
     
-            let newObject = JSON.parse(JSON.stringify(prev[currentHr]))
+      //       let newObject = JSON.parse(JSON.stringify(prev[currentHr]))
           
-            newObject.actual = newObject.actual + 1
+      //       newObject.actual = newObject.actual + 1
             
-            let next = JSON.parse(JSON.stringify(prev))
-            next.splice(currentHr,1,newObject)
+      //       let next = JSON.parse(JSON.stringify(prev))
+      //       next.splice(currentHr,1,newObject)
       
-            db.collection("graphData").doc(dateDeployed).set({
-              arr: next
-            })
+      //       db.collection("graphData").doc(dateDeployed).set({
+      //         arr: next
+      //       })
       
-          })
-        }
+      //     })
+      //   }
 
-        db.collection("rooms").doc(room).set({
-          count: newCount
-        }, { merge: true })
+      //   db.collection("rooms").doc(room).set({
+      //     count: newCount
+      //   }, { merge: true })
 
-      })
+      // })
     
       history.push("/done")
     } catch (e) {
       setLoading(false)
-      let msg
-      if (e.message === "1") {
-        msg = "Please select a valid floor."
-      } else if (e.message === "2") {
-        msg = "Please select a valid unit."
-      } else {
-        msg = "Please try again."
-      }
-      setError(msg)
+      // let msg
+      // if (e.message === "1") {
+      //   msg = "Please select a valid floor."
+      // } else if (e.message === "2") {
+      //   msg = "Please select a valid unit."
+      // } else {
+      //   msg = "Please try again."
+      // }
+      // setError(msg)
     }
   }
 

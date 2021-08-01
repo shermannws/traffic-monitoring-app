@@ -14,7 +14,7 @@ import { withStyles } from '@material-ui/core/styles';
 import { Stack, Animation, EventTracker } from '@devexpress/dx-react-chart';
 import { ProgressBarLine } from 'react-progressbar-line'
 
-import { db } from '../firebase'
+// import { db } from '../firebase'
 
 const legendStyles = () => ({
   root: {
@@ -37,8 +37,130 @@ const legendLabelBase = ({ classes, ...restProps }) => (
 );
 const Label = withStyles(legendLabelStyles, { name: 'LegendLabel' })(legendLabelBase);
 
+const graphData = [
+  {
+      "time": "12am",
+      "actual": 0,
+      "expected": 0
+  },
+  {
+      "actual": 0,
+      "time": "1am",
+      "expected": 0
+  },
+  {
+      "time": "2am",
+      "actual": 0,
+      "expected": 0
+  },
+  {
+      "expected": 0,
+      "time": "3am",
+      "actual": 0
+  },
+  {
+      "time": "4am",
+      "expected": 0,
+      "actual": 0
+  },
+  {
+      "time": "5am",
+      "expected": 0,
+      "actual": 0
+  },
+  {
+      "actual": 0,
+      "expected": 0,
+      "time": "6am"
+  },
+  {
+      "time": "7am",
+      "expected": 0,
+      "actual": 0
+  },
+  {
+      "actual": 1,
+      "expected": 0,
+      "time": "8am"
+  },
+  {
+      "time": "9am",
+      "expected": 30,
+      "actual": 35
+  },
+  {
+      "time": "10am",
+      "expected": 30,
+      "actual": 30
+  },
+  {
+      "expected": 30,
+      "actual": 22,
+      "time": "11am"
+  },
+  {
+      "time": "12pm",
+      "actual": 27,
+      "expected": 30
+  },
+  {
+      "actual": 32,
+      "time": "1pm",
+      "expected": 30
+  },
+  {
+      "time": "2pm",
+      "actual": 32,
+      "expected": 30
+  },
+  {
+      "actual": 30,
+      "expected": 30,
+      "time": "3pm"
+  },
+  {
+      "expected": 0,
+      "time": "4pm",
+      "actual": 5
+  },
+  {
+      "actual": 1,
+      "time": "5pm",
+      "expected": 0
+  },
+  {
+      "actual": 0,
+      "time": "6pm",
+      "expected": 0
+  },
+  {
+      "actual": 0,
+      "expected": 0,
+      "time": "7pm"
+  },
+  {
+      "actual": 0,
+      "time": "8pm",
+      "expected": 0
+  },
+  {
+      "time": "9pm",
+      "expected": 0,
+      "actual": 0
+  },
+  {
+      "expected": 0,
+      "actual": 0,
+      "time": "10pm"
+  },
+  {
+      "time": "11pm",
+      "actual": 0,
+      "expected": 0
+  }
+]
 
-const dateDeployed = "01Aug" //01Aug 
+// const dateDeployed = "01Aug"
 export default function DashBoardPage() {
   const [data, setData] = useState([])
   const [plotData, setPlotData] = useState([])
@@ -46,11 +168,13 @@ export default function DashBoardPage() {
   const [actual, setActual] = useState(0)
 
   useEffect(() => {
-    const dataDocRef = db.collection("graphData").doc(dateDeployed)
-    dataDocRef.get().then((doc) => {
-      setData(doc.data().arr)
-      setPlotData(doc.data().arr.slice(9,17))
-    })
+    // const dataDocRef = db.collection("graphData").doc(dateDeployed)
+    // dataDocRef.get().then((doc) => {
+    //   setData(doc.data().arr)
+    //   setPlotData(doc.data().arr.slice(9,17))
+    // })
+    setData(graphData)
+    setPlotData(graphData.slice(9,17))
   }, [])
 
   useEffect(() => {
